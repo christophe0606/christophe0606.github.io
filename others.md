@@ -1,6 +1,6 @@
 ---
 layout: page
-title: others
+title: Others
 permalink: /others/
 cat: True
 ---
