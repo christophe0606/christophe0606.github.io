@@ -1,0 +1,10 @@
+<div class ="image-gallery">
+  {% for image in site.data.gallery %}
+
+  <div class="box"><a href="{{image.post | relative_url}}">
+    <img src="{{ image.url  | relative_url }}" class="img-gallery" />
+  </a></div>
+  {% endfor %}
+ </div>
+
+ <p>Gallery code from <a href="https://dmnfarrell.github.io/software/jekyll-galleries">this blog</a></p>
