@@ -59,14 +59,32 @@ img {
 }
 
 .video {
-  text-align:center;
-  display: block;
+  overflow: hidden;
+  /* 16:9 aspect ratio */
+  padding-top: 56.25%;
+  margin-bottom: 2%;
+  position: relative;
+}
+
+.video iframe  {
+  border: 0;
+   height: 100%;
+   left: 0;
+   position: absolute;
+   top: 0;
+   width: 100%;
 }
 
 .figure {
   text-align:center;
   display: block;
 }
+
+.figure > img {
+  width: 50%;
+}
+
+
 
 /**
  * Lists
