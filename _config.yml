@@ -44,6 +44,7 @@ defaults:
       image: /apple-touch-icon.png
       description: Blog about science and (algorithmic) art.
 paginate: 5
+show_excerpts: true
 # Build settings
 theme: minima
 plugins:
