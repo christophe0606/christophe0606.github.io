@@ -19,4 +19,4 @@ During my free time, I like to build stuff like this acoustic levitator:
 I like to program, read scientific books, make 3D printed objects or algorithmic art like this portrait of me:
 
 
-{% include figure.html url="/assets/2021-10-09/MyAvatarBraids_signed.jpg" title="My Face" %}
+{% include art.html name="/assets/2021-10-09/MyAvatarBraids" title="Selfie" %}
