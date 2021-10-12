@@ -11,12 +11,10 @@ I am French. I have been working for more than 20 years at the intersection of s
 
 And this blog will be about the topics that I like : maths, physics, computer science and a more recent interest in algorithmic art.
 
-During my free time, I like to build stuff like this acoustic levitator:
+During my free time, I like to build things like this acoustic levitator:
 
 {% include vimeo.html content="264091591" h="d7ed240fce" %}
 
-
 I like to program, read scientific books, make 3D printed objects or algorithmic art like this portrait of me:
-
 
 {% include art.html name="/assets/2021-10-09/MyAvatarBraids" title="Selfie" %}

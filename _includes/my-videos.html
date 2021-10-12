@@ -1,0 +1,18 @@
+<div class ="video-gallery">
+
+{% for video in site.data.videos %}
+
+{% capture content %}{{video.content}}{% endcapture %}
+
+{% capture h %}{{video.h}}{% endcapture %}
+
+<div class="videobox">
+{% include vimeo_gallery.html content=content
+h=h %}
+<a class="videolink" href="{{video.post | relative_url}}">Post: {{video.title}}</a>
+</div>
+
+
+{% endfor %}
+
+</div>

@@ -16,6 +16,23 @@
     row-gap: 10px;
   }
 
+  .video-gallery {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: minmax(50px, auto);
+    justify-content: center;
+    padding: 0px;
+    margin: 0px;
+    column-gap: 5px;
+    row-gap: 5px;
+  }
+
+  .videobox {
+    text-align: center;
+  }
+
+
   .box {
       /*flex-basis: 25%;*/
       width: 100%;
