@@ -29,6 +29,7 @@ github_username:  christophe0606
 linkedin_username:  favergeon
 vimeo_username: cfavergeon
 ello_username: cfavergeon
+mastodon_username: christophef
 logo: /apple-touch-icon.png
 social:
   links:
@@ -36,6 +37,7 @@ social:
     - https://www.linkedin.com/in/favergeon
     - https://ello.co/cfavergeon
     - https://vimeo.com/cfavergeon
+    - https://mathstodon.xyz/@christophef
 google_site_verification: aPGEGimqqR-phz1VpA2ng7D5ORBS6ctNJE8r-eVFtv4
 defaults:
   - scope:

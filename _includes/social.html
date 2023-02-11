@@ -19,4 +19,5 @@
     {% capture username %}{{site.vimeo_username}}{% endcapture %}
     {% include icon-vimeo.html username=username %}
 </li>{%- endif -%}
+{%- if site.mastodon_username -%}<li><a rel="me" href="https://mathstodon.xyz/@christophef"><svg class="svg-icon"><use xlink:href="{{ '/assets/minima-social-icons.svg#mastodon' | relative_url }}"></use></svg> <span class="username">{{ site.mastodon_username| escape }}</span></a></li>{%- endif -%}
 </ul>
