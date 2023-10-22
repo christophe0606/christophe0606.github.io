@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 # gem "rails"
 
-gem "jekyll", "~> 3.9"
+gem "jekyll", "~> 3.9.3"
 
 # Hello! This is where you manage which Jekyll version is used to run.
 # When you want to use a different version, change it below, save the
