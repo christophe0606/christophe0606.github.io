@@ -2,9 +2,11 @@
 
 source "https://rubygems.org"
 
+# check versions here https://pages.github.com/versions/
+
 # gem "rails"
 
-gem "jekyll", "~> 3.9.3"
+gem "jekyll", "~> 3.10.0"
 
 # Hello! This is where you manage which Jekyll version is used to run.
 # When you want to use a different version, change it below, save the
@@ -19,16 +21,16 @@ gem "jekyll", "~> 3.9.3"
 gem "minima", "~> 2.5.1"
 # If you want to use GitHub Pages, remove the "gem "jekyll"" above and
 # uncomment the line below. To upgrade, run `bundle update github-pages`.
-gem "github-pages", "~> 228"
+gem 'github-pages', "~> 232"
 gem "liquid", "~> 4.0.4"
 
 # If you have any plugins, put them here!
 group :jekyll_plugins do
-  gem "jekyll-feed", "~> 0.15.1"
+  gem "jekyll-feed", "~> 0.17.0"
   gem "jekyll-paginate", "~> 1.1.0"
   gem "jekyll-seo-tag", "~> 2.8.0"
 end
-gem 'jekyll-avatar'
+gem 'jekyll-avatar', "~> 0.8.0"
 
 # Windows and JRuby does not include zoneinfo files, so bundle the tzinfo-data gem
 # and associated library.
