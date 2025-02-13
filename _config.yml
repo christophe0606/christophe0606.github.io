@@ -18,10 +18,10 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Antares
+title: My Blog
 author: Christophe Favergeon
 #email: empty
-description: Blog about science and (algorithmic) art.
+description: Blog about science and algorithmic art.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://www.favergeon.info" # the base hostname & protocol for your site, e.g. http://example.com
 #twitter_username: cfavergeon
@@ -43,7 +43,7 @@ defaults:
       path: ""
     values:
       image: /apple-touch-icon.png
-      description: Blog about science and (algorithmic) art.
+      description: Blog about science and algorithmic art.
 paginate: 5
 show_excerpts: true
 # Build settings
