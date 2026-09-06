@@ -5,6 +5,7 @@ open Verso Genre Blog
 #doc (Page) "About" =>
 
 ![Christophe Favergeon](https://github.com/christophe0606.png?size=50)
+
 # Welcome to my blog !
 
 I am French. I have been working for more than 20 years at the intersection of software, mathematics and hardware.
