@@ -6,16 +6,15 @@ open Verso Genre Blog
 def Blog.Posts.Schmidtarrangements.details : Blog.PostDetails where
   publicationTime := "10:05:32+02:00"
   excerpt := "Pictures from Schmidt Arrangements."
-  image := "assets/2021-10-13/Minus3B_thumb.jpg"
-  tags := #["maths", "art", "2D", "3D"]
-  legacyRoute := "arts/2021/10/13/schmidtarrangements.html"
+  image := some "assets/2021-10-13/Minus3B_thumb.jpg"
+  legacyRoute := some "arts/2021/10/13/schmidtarrangements.html"
 
 #doc (Post) "Schmidt Arrangements" =>
 
 %%%
 authors := [Blog.config.author]
 date := {year := 2021, month := 10, day := 13}
-categories := [Blog.arts]
+categories := [Blog.arts, Blog.maths, Blog.twoD, Blog.threeD]
 %%%
 
 

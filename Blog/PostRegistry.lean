@@ -1,3 +1,4 @@
+import Blog.Posts.LeanBlog
 import Blog.Posts.Hyperbolic
 import Blog.Posts.Evolving
 import Blog.Posts.Tspart
@@ -13,20 +14,21 @@ structure RegisteredPost where
   document : BlogPost
   details : PostDetails
 
+/-- Build an entry from a post module and its `details` declaration. -/
+macro "registerPost " postModule:ident : term => do
+  let details := Lean.mkIdentFrom postModule (postModule.getId ++ `details)
+  `({ document := { id := (%docName? $postModule), contents := (%doc? $postModule) }
+      details := $details : RegisteredPost })
+
 /-- Register each post once. Dates and titles are read from its Verso document. -/
 def postRegistry : Array RegisteredPost := #[
-  ⟨{id := (%docName? Blog.Posts.Hyperbolic), contents := (%doc? Blog.Posts.Hyperbolic)},
-    Blog.Posts.Hyperbolic.details⟩,
-  ⟨{id := (%docName? Blog.Posts.Evolving), contents := (%doc? Blog.Posts.Evolving)},
-    Blog.Posts.Evolving.details⟩,
-  ⟨{id := (%docName? Blog.Posts.Tspart), contents := (%doc? Blog.Posts.Tspart)},
-    Blog.Posts.Tspart.details⟩,
-  ⟨{id := (%docName? Blog.Posts.Schmidtarrangements), contents := (%doc? Blog.Posts.Schmidtarrangements)},
-    Blog.Posts.Schmidtarrangements.details⟩,
-  ⟨{id := (%docName? Blog.Posts.Bubbles), contents := (%doc? Blog.Posts.Bubbles)},
-    Blog.Posts.Bubbles.details⟩,
-  ⟨{id := (%docName? Blog.Posts.Myavatar), contents := (%doc? Blog.Posts.Myavatar)},
-    Blog.Posts.Myavatar.details⟩
+  registerPost Blog.Posts.LeanBlog,
+  registerPost Blog.Posts.Hyperbolic,
+  registerPost Blog.Posts.Evolving,
+  registerPost Blog.Posts.Tspart,
+  registerPost Blog.Posts.Schmidtarrangements,
+  registerPost Blog.Posts.Bubbles,
+  registerPost Blog.Posts.Myavatar
 ]
 
 /-- Draft documents are excluded from both rendering and publication metadata. -/
@@ -40,8 +42,7 @@ def posts : Array PostInfo := publishedPosts.filterMap fun p => do
     toPostDetails := p.details
     title := p.document.contents.titleString
     date := date
-    published := date ++ "T" ++ p.details.publicationTime
-    category := String.intercalate ", " (metadata.categories.map (·.slug))
+    categories := metadata.categories
     route := "blog/" ++ defaultPostName metadata.date p.document.contents.titleString ++ "/"
   }
 

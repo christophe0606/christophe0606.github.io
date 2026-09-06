@@ -21,7 +21,7 @@ def structuredData (title description route image : String) (post : Option PostI
     ("url", toJson (config.url ++ "/" ++ route))]
   let fields := match post with
     | none => fields
-    | some p => fields ++ [("datePublished", toJson p.published), ("dateModified", toJson p.published),
+    | some p => fields ++ [("datePublished", toJson p.publishedAt), ("dateModified", toJson p.publishedAt),
         ("mainEntityOfPage", toJson (config.url ++ "/" ++ route))]
   (Lean.Json.mkObj fields).compress.replace "<" "\\u003c" |>.replace ">" "\\u003e" |>.replace "&" "\\u0026"
 
@@ -29,8 +29,9 @@ def structuredData (title description route image : String) (post : Option PostI
 def seoHead (title : String) (path : Array String) : Html := Id.run do
   let post := posts.find? (fun p => p.title == title)
   let description := post.map (·.excerpt) |>.getD config.description
-  let route := post.map (·.legacyRoute) |>.getD (String.intercalate "/" path.toList ++ if path.isEmpty then "" else "/")
-  let image := config.url ++ "/" ++ (post.map (·.image) |>.getD config.logo)
+  let route := post.map (·.publicRoute) |>.getD (String.intercalate "/" path.toList ++ if path.isEmpty then "" else "/")
+  let postImage := post.bind (·.image)
+  let image := config.url ++ "/" ++ postImage.getD config.defaultPreviewImage
   let count := (posts.size + max 1 config.postsPerPage - 1) / max 1 config.postsPerPage
   let page : Nat := if path.isEmpty then 1 else
     if path.size == 1 then (path[0]!.drop 4).toString.toNat?.getD 0 else 0
@@ -51,10 +52,10 @@ def seoHead (title : String) (path : Array String) : Html := Id.run do
     <meta property="og:url" content={{config.url ++ "/" ++ route}}/>
     {{match post with
       | none => .empty
-      | some p => {{<meta property="article:published_time" content={{p.published}}/>}}}}
+      | some p => {{<meta property="article:published_time" content={{p.publishedAt}}/>}}}}
     {{if page > 1 then {{<link rel="prev" href={{pageUrl (page - 1)}}/>}} else .empty}}
     {{if page > 0 && page < count then {{<link rel="next" href={{pageUrl (page + 1)}}/>}} else .empty}}
-    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:card" content={{if postImage.isSome then "summary_large_image" else "summary"}}/>
     <meta property="twitter:image" content={{image}}/>
     <meta property="twitter:title" content={{title}}/>
     <meta name="google-site-verification" content={{config.googleSiteVerification}}/>

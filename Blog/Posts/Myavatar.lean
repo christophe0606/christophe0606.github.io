@@ -6,16 +6,15 @@ open Verso Genre Blog
 def Blog.Posts.Myavatar.details : Blog.PostDetails where
   publicationTime := "10:05:32+02:00"
   excerpt := "In this first post, I'd like to explain the algorithm used to generate my portrait picture."
-  image := "assets/2021-10-09/SephoraBraids_thumb.jpg"
-  tags := #["maths", "art", "2D", "3D"]
-  legacyRoute := "arts/2021/10/09/myavatar.html"
+  image := some "assets/2021-10-09/SephoraBraids_thumb.jpg"
+  legacyRoute := some "arts/2021/10/09/myavatar.html"
 
 #doc (Post) "My Avatar" =>
 
 %%%
 authors := [Blog.config.author]
 date := {year := 2021, month := 10, day := 9}
-categories := [Blog.arts]
+categories := [Blog.arts, Blog.maths, Blog.twoD, Blog.threeD]
 %%%
 
 In this first post, I'd like to explain how my portrait picture below was created:

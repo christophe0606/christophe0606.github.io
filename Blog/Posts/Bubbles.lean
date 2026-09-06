@@ -6,16 +6,15 @@ open Verso Genre Blog
 def Blog.Posts.Bubbles.details : Blog.PostDetails where
   publicationTime := "10:05:32+02:00"
   excerpt := "How to generate circle packings from pictures."
-  image := "assets/2021-10-12/SephoraBubble_thumb.jpg"
-  tags := #["maths", "art", "2D", "3D"]
-  legacyRoute := "arts/2021/10/12/bubbles.html"
+  image := some "assets/2021-10-12/SephoraBubble_thumb.jpg"
+  legacyRoute := some "arts/2021/10/12/bubbles.html"
 
 #doc (Post) "Bubbles" =>
 
 %%%
 authors := [Blog.config.author]
 date := {year := 2021, month := 10, day := 12}
-categories := [Blog.arts]
+categories := [Blog.arts, Blog.maths, Blog.twoD, Blog.threeD]
 %%%
 
 In this post, I'd like to explain how I have created pictures like this Yin Yang symbol :

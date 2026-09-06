@@ -1,4 +1,4 @@
-import VersoBlog
+import Blog.Math
 
 open Verso Genre Blog Output Html
 

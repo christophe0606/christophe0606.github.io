@@ -39,8 +39,9 @@ def publishExtras (destination : System.FilePath) : IO Unit := do
   for entry in ← System.FilePath.readDir "static/root" do
     IO.FS.writeBinFile (destination / entry.fileName) (← IO.FS.readBinFile entry.path)
   for post in posts do
+    let some legacyRoute := post.legacyRoute | continue
     let source := destination / post.route / "index.html"
-    let target := destination / post.legacyRoute
+    let target := destination / legacyRoute
     IO.FS.createDirAll target.parent.get!
     let html ← IO.FS.readFile source
     -- Verso URLs are relative to its base element; legacy paths are four levels deep.
@@ -50,12 +51,13 @@ def publishExtras (destination : System.FilePath) : IO Unit := do
     ((← IO.FS.readFile (destination / "404/index.html")).replace "<base href=\".././\"" "<base href=\"./\"")
   IO.FS.writeFile (destination / ".nojekyll") ""
   let items := posts.toList.map fun p =>
-    let url := xmlEscape (config.url ++ "/" ++ p.legacyRoute)
+    let url := xmlEscape (config.url ++ "/" ++ p.publicRoute)
     "<entry><title>" ++ xmlEscape p.title ++ "</title><link href=\"" ++ url ++ "\"/>" ++
-    "<id>" ++ url ++ "</id><published>" ++ p.published ++ "</published><updated>" ++ p.published ++
-    "</updated><author><name>" ++ xmlEscape config.author ++ "</name></author><category term=\"" ++
-    xmlEscape p.category ++ "\"/><summary type=\"html\">" ++ xmlEscape p.excerpt ++ "</summary></entry>"
-  let updated := posts[0]?.map (·.published) |>.getD "1970-01-01T00:00:00Z"
+    "<id>" ++ url ++ "</id><published>" ++ p.publishedAt ++ "</published><updated>" ++ p.publishedAt ++
+    "</updated><author><name>" ++ xmlEscape config.author ++ "</name></author>" ++
+    String.join (p.categories.map fun category => "<category term=\"" ++ xmlEscape category.slug ++ "\"/>") ++
+    "<summary type=\"html\">" ++ xmlEscape p.excerpt ++ "</summary></entry>"
+  let updated := posts[0]?.map (·.publishedAt) |>.getD "1970-01-01T00:00:00Z"
   IO.FS.writeFile (destination / "feed.xml") (
     "<?xml version=\"1.0\" encoding=\"utf-8\"?><feed xmlns=\"http://www.w3.org/2005/Atom\">" ++
     "<generator uri=\"https://verso.lean-lang.org/\">Lean Verso</generator><title>" ++ xmlEscape config.title ++
@@ -63,7 +65,7 @@ def publishExtras (destination : System.FilePath) : IO Unit := do
     "/feed.xml\" rel=\"self\" type=\"application/atom+xml\"/><link href=\"" ++ xmlEscape config.url ++
     "/\" rel=\"alternate\" type=\"text/html\"/><id>" ++ xmlEscape config.url ++ "/feed.xml</id><updated>" ++
     updated ++ "</updated><author><name>" ++ xmlEscape config.author ++ "</name></author>" ++ String.join items ++ "</feed>")
-  let routes := #["", "about/", "Gallery/", "arts/", "science/", "others/", "sites/", "disclaimer/"] ++ posts.map (·.legacyRoute)
+  let routes := #["", "about/", "Gallery/", "arts/", "science/", "others/", "sites/", "disclaimer/"] ++ posts.map (·.publicRoute)
   IO.FS.writeFile (destination / "sitemap.xml") (
     "<?xml version=\"1.0\" encoding=\"utf-8\"?><urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">" ++
     String.join (routes.toList.map fun r => "<url><loc>" ++ config.url ++ "/" ++ r ++ "</loc></url>") ++ "</urlset>")

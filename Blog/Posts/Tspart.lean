@@ -6,16 +6,15 @@ open Verso Genre Blog
 def Blog.Posts.Tspart.details : Blog.PostDetails where
   publicationTime := "08:05:32+02:00"
   excerpt := "Pictures from the Travelling salesman problem."
-  image := "assets/2021-10-16/TrefoilKnot_thumb.jpg"
-  tags := #["maths", "art", "2D"]
-  legacyRoute := "arts/2021/10/16/tspart.html"
+  image := some "assets/2021-10-16/TrefoilKnot_thumb.jpg"
+  legacyRoute := some "arts/2021/10/16/tspart.html"
 
 #doc (Post) "TSP Art" =>
 
 %%%
 authors := [Blog.config.author]
 date := {year := 2021, month := 10, day := 16}
-categories := [Blog.arts]
+categories := [Blog.arts, Blog.maths, Blog.twoD]
 %%%
 
 The [Travelling salesman problem](https://en.wikipedia.org/wiki/Travelling_salesman_problem) (TSP) can be used to generate pictures like:

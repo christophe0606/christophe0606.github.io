@@ -6,16 +6,15 @@ open Verso Genre Blog
 def Blog.Posts.Hyperbolic.details : Blog.PostDetails where
   publicationTime := "08:30:00+01:00"
   excerpt := "Tilings of the hyperbolic plane"
-  image := "assets/2023-02-11/TriangleGroup_thumb.jpg"
-  tags := #["maths", "art", "2D"]
-  legacyRoute := "arts/2023/02/11/hyperbolic.html"
+  image := some "assets/2023-02-11/TriangleGroup_thumb.jpg"
+  legacyRoute := some "arts/2023/02/11/hyperbolic.html"
 
 #doc (Post) "Hyperbolic Tilings" =>
 
 %%%
 authors := [Blog.config.author]
 date := {year := 2023, month := 2, day := 11}
-categories := [Blog.arts]
+categories := [Blog.arts, Blog.maths, Blog.twoD]
 %%%
 
 I have always been fascinated by the Escher tilings like Circle Limit III below:

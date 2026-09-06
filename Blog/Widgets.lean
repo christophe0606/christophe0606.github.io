@@ -8,8 +8,8 @@ namespace Blog
 
 def postList (items : Array PostInfo) : Html := {{
   <ul class="post-list">{{items.map fun p => {{
-    <li><span class="post-meta">{{displayDate p.date}} " - " {{p.category}}</span>
-      <h3><a class="post-link" href={{p.legacyRoute}}>{{p.title}}</a></h3>
+    <li><span class="post-meta">{{displayDate p.date}} " - " {{String.intercalate ", " (p.categories.map (·.name))}}</span>
+      <h3><a class="post-link" href={{p.publicRoute}}>{{p.title}}</a></h3>
       {{if config.showExcerpts then {{<p>{{p.excerpt}}</p>}} else .empty}}
     </li>
   }}}}</ul>
@@ -50,6 +50,11 @@ def galleryHtml : Html := {{
 
 def sitesHtml : Html := {{<ul>{{sites.map fun s => {{<li><a href={{s.url}}>{{s.label}}</a></li>}}}}</ul>}}
 
-def artsHtml := postList (posts.filter (·.category == "arts"))
+def categoryPosts (category : Post.Category) : Html :=
+  postList (posts.filter fun p => p.categories.any (·.slug == category.slug))
+
+def artsHtml := categoryPosts arts
+def scienceHtml := categoryPosts science
+def othersHtml := categoryPosts others
 
 end Blog

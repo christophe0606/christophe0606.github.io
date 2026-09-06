@@ -6,16 +6,15 @@ open Verso Genre Blog
 def Blog.Posts.Evolving.details : Blog.PostDetails where
   publicationTime := "04:59:00+02:00"
   excerpt := "Representing in 3D the different steps of an L-system recursion"
-  image := "assets/2021-10-28/Pyramid_thumb.jpg"
-  tags := #["maths", "art", "2D", "3D"]
-  legacyRoute := "arts/2021/10/28/evolving.html"
+  image := some "assets/2021-10-28/Pyramid_thumb.jpg"
+  legacyRoute := some "arts/2021/10/28/evolving.html"
 
 #doc (Post) "Evolving L-system" =>
 
 %%%
 authors := [Blog.config.author]
 date := {year := 2021, month := 10, day := 28}
-categories := [Blog.arts]
+categories := [Blog.arts, Blog.maths, Blog.twoD, Blog.threeD]
 %%%
 
 An [L-system](https://en.wikipedia.org/wiki/L-system) is a rewriting system where some rules are describing how symbols are replaced by string of symbols.

@@ -12,6 +12,8 @@ structure SiteConfig where
   description : String
   url : String
   logo : String
+  /-- Site-relative preview image used when a post does not specify one. -/
+  defaultPreviewImage : String := "mstile-150x150.png"
   /-- CSS background color for inline and display math; use "#fff" for white. -/
   mathBackground : String := "#eee"
   locale : String := "en_US"
