@@ -13,6 +13,8 @@ structure GalleryVideo where
   title : String
 
 def gallery : Array GalleryImage := #[
+  ⟨"blog/2026-9-6-solar-photography/#solar-disk", "assets/2026-09-06/sun_2026_09_04_13_05_54_g140_e4_00003_stratawarp_31pct_gallery.jpg"⟩,
+  ⟨"blog/2026-9-6-solar-photography/#prominence-photo", "assets/2026-09-06/sun_2026_09_04_13_23_50_g285_e5_00001_stratawarp_10f_gallery.jpg"⟩,
   ⟨"arts/2021/10/09/myavatar.html#selfie", "assets/2021-10-09/MyAvatarBraids_gallery.jpg"⟩,
   ⟨"arts/2021/10/09/myavatar.html#sephora", "assets/2021-10-09/SephoraBraids_gallery.jpg"⟩,
   ⟨"arts/2021/10/09/myavatar.html#face", "assets/2021-10-09/face_gallery.jpg"⟩,
@@ -41,6 +43,7 @@ def gallery : Array GalleryImage := #[
 ]
 
 def videos : Array GalleryVideo := #[
+  ⟨"blog/2026-9-6-solar-photography/#prominence-video", "1224367805", "", "Solar Photography"⟩,
   ⟨"arts/2023/02/11/hyperbolic.html#EscherTiling", "742171245", "8da470eed1", "Hyperbolic Tilings"⟩,
   ⟨"arts/2023/02/11/hyperbolic.html#HyperbolicPlane", "797924461", "2e4ccabe7d", "Hyperbolic Tilings"⟩,
   ⟨"arts/2023/02/11/hyperbolic.html#Mobius", "797925763", "41912c45cb", "Hyperbolic Tilings"⟩,

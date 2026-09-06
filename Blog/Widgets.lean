@@ -37,7 +37,7 @@ def galleryHtml : Html := {{
   <h2>"Videos"</h2>
   <div class="video-gallery">{{videos.map fun v => {{
     <div class="videobox"><div class="video">
-      <iframe src={{"https://player.vimeo.com/video/" ++ v.videoId ++ "?h=" ++ v.hash}}
+      <iframe src={{"https://player.vimeo.com/video/" ++ v.videoId ++ (if v.hash.isEmpty then "" else "?h=" ++ v.hash)}}
         title={{v.title}} loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen="allowfullscreen"></iframe>
       </div><a class="videolink" href={{v.post}}>"Post: "{{v.title}}</a>
     </div>

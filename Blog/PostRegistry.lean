@@ -1,3 +1,4 @@
+import Blog.Posts.SolarPhotography
 import Blog.Posts.LeanBlog
 import Blog.Posts.Hyperbolic
 import Blog.Posts.Evolving
@@ -22,6 +23,7 @@ macro "registerPost " postModule:ident : term => do
 
 /-- Register each post once. Dates and titles are read from its Verso document. -/
 def postRegistry : Array RegisteredPost := #[
+  registerPost Blog.Posts.SolarPhotography,
   registerPost Blog.Posts.LeanBlog,
   registerPost Blog.Posts.Hyperbolic,
   registerPost Blog.Posts.Evolving,

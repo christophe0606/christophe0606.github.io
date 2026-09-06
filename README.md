@@ -103,6 +103,20 @@ The preview image is optional. Set `image := some "assets/my-picture.jpg"` to us
 
 Artwork uses `_thumb.jpg` linked to `_signed.jpg`, as in the original. `figure` and standard Markdown images work with local or remote URLs. Use site-relative local paths without a leading slash: Verso inserts a base URL so these also work under a GitHub project subpath.
 
+Vimeo embeds accept an optional positive integer `percent` to scale one player relative to
+the `.videowidth` width in `static/files/verso.css`:
+
+```text
+:::vimeo "1224367805" "" (percent := 75)
+:::
+```
+
+Omitting `percent` means `100`, preserving the existing width. `50` halves the width;
+`150` makes it 1.5 times as wide. The player stays centered and its height follows the
+existing `.video` aspect ratio. The video itself keeps its proportions inside the player.
+Use an empty hash string for a public video that has no privacy hash. This option affects
+only this post embed, not the gallery.
+
 ### Lean code blocks and their options
 
 These examples use this project's **Verso Blog** genre (Verso 4.33.0). Options shown for the Manual genre in Verso's documentation may differ.

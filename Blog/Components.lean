@@ -1,6 +1,7 @@
 import Blog.Math
 
 open Verso Genre Blog Output Html
+open Verso.Doc.Elab Lean
 
 namespace Blog
 
@@ -20,13 +21,33 @@ block_component +directive figure (url : String) (title : String) where
 block_component +directive anchor (name : String) where
   toHtml _ _ _ _ _ := pure {{<span id={{name}}></span>}}
 
-block_component +directive vimeo (videoId : String) (hash : String) where
+block_component vimeo (videoId : String) (hash : String) (percent : Nat) where
   toHtml _ _ _ _ _ := pure {{
-    <div class="videowidth"><div class="video">
-      <iframe src={{"https://player.vimeo.com/video/" ++ videoId ++ "?h=" ++ hash}}
+    <div class="videowidth"><div class="video" style={{s!"width: {percent}%; left: 50%; transform: translateX(-50%);"}}>
+      <iframe src={{"https://player.vimeo.com/video/" ++ videoId ++ (if hash.isEmpty then "" else "?h=" ++ hash)}}
         title="Vimeo video" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen="allowfullscreen"></iframe>
     </div></div>
   }}
+
+/-- Scale one Vimeo player relative to the width set by `.videowidth`. -/
+structure VimeoArgs where
+  videoId : String
+  hash : String
+  percent : Nat
+
+instance : Verso.ArgParse.FromArgs VimeoArgs DocElabM where
+  fromArgs := VimeoArgs.mk <$>
+    .positional `videoId .string <*>
+    .positional `hash .string <*>
+    ((·.getD 100) <$> .named `percent .nat true)
+
+@[directive vimeo]
+def vimeoDirective : DirectiveExpanderOf VimeoArgs
+  | args, blocks => do
+    if args.percent == 0 then
+      throwError "Vimeo percent must be greater than zero"
+    ``(vimeo $(Lean.quote args.videoId) $(Lean.quote args.hash) $(Lean.quote args.percent)
+      #[$(← blocks.mapM Verso.Doc.Elab.elabBlock),*])
 
 /-- Native video; the browser fetches metadata only when requested. -/
 block_component +directive video (url : String) (poster : String) where
