@@ -1,9 +1,0 @@
-<div class ="image-gallery">
-  {% for image in site.data.gallery %}
-
-  <div class="box"><a href="{{image.post | relative_url}}">
-    <img src="{{ image.url  | relative_url }}" class="img-gallery" />
-  </a></div>
-  {% endfor %}
- </div>
-

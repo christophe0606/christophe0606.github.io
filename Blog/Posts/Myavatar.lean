@@ -1,0 +1,172 @@
+import Blog.Components
+import Blog.PostMetadata
+
+open Verso Genre Blog
+
+def Blog.Posts.Myavatar.details : Blog.PostDetails where
+  publicationTime := "10:05:32+02:00"
+  excerpt := "In this first post, I'd like to explain the algorithm used to generate my portrait picture."
+  image := "assets/2021-10-09/SephoraBraids_thumb.jpg"
+  tags := #["maths", "art", "2D", "3D"]
+  legacyRoute := "arts/2021/10/09/myavatar.html"
+
+#doc (Post) "My Avatar" =>
+
+%%%
+authors := [Blog.config.author]
+date := {year := 2021, month := 10, day := 9}
+categories := [Blog.arts]
+%%%
+
+In this first post, I'd like to explain how my portrait picture below was created:
+
+
+:::anchor "selfie"
+:::
+
+
+:::art "assets/2021-10-09/MyAvatarBraids" "Selfie"
+:::
+
+
+It is an interesting use of constraint programming.
+
+Let's assume that you have the following set of 16 tiles.
+
+
+:::figure "assets/2021-10-09/tiles.jpg" "tiles"
+:::
+
+
+Each tile, when seen from far, has a different gray content.
+
+We can use this gray content to try to find the tile approximating a pixel of the portrait in the best way.
+
+If $`t_{x,y,k}=1` it means that tile number $`k` has been selected for pixel at position $`(x,y)`.
+
+We can precompute the error due to this choice by comparing the gray content of this tile with the pixel value.
+
+If this precomputed error is $`e_{x,y,k}` then the total error is:
+
+$$`total = \sum_{x,y,k} e_{x,y,k} . t_{x,y,k}` 
+
+with some bounds on $`x,y,k` corresponding to the dimensions of the picture and the number of tiles.
+
+What we are trying to do is to find the value of the $`t_{x,y,k}` such that the total error is minimized.
+
+We have some additional constraints on the $`t_{x,y,k}`:
+
+* $`0 \leq t_{x,y,k} \leq 1` 
+
+* $`t_{x,y,k} \in \mathbb{N}`
+
+Those constraints encode the fact that $`t_{x,y,k}` can either be $`0` or $`1`. Either we have selected the tile $`k` for pixel $`(x,y)` or not.
+
+We have integer constraints for the tiles and an error which is a real number : it is a mixed integer programming problem which can be solved with [glpk](https://www.gnu.org/software/glpk/) or [Mathematica](https://www.wolfram.com/mathematica/).
+
+But, the constraints above are not enough. We don't want to select several tiles for the same pixel. One and only one tile must be selected for each pixel.
+
+For each pixel, we thus need to add a new constraint:
+
+$$`\sum_k t_{x,y,k} = 1`
+
+With the integer constraints on the variables $`t_{x,y,k}` we know that this sum can be $`1` if and only if one of the variable is $`1`.
+
+But we do not want to get this:
+
+
+:::figure "assets/2021-10-09/row.jpg" "row"
+:::
+
+
+We need additional constraints to express the topological constraints of the tiles.
+
+If we look at tiles with a black right side, we have the tiles:
+
+$$`1, 2, 5, 6, 9, 11, 13, 15` 
+
+and if we look at the tiles with a black left right side, we have the tiles:
+
+$$`1, 2, 5, 6, 9, 10, 13, 14`
+
+The constraint that we want to express is that if we choose a tile from the first group for a pixel $`(x,y)` then we need to choose a tile from the second group for the pixel $`(x+1,y)`.
+
+This constraint can be expressed as:
+
+$$`\sum_{k \in \{1, 2, 5, 6, 9, 11, 13, 15\}} t_{x,y,k}= \sum_{k \in \{1, 2, 5, 6, 9, 10, 13, 14\}} t_{x+1,y,k}`
+
+If the sum is $`0` it means no tile has been selected. If a sum is $`1`, one tile has been selected. The constraint is the expression that the choices at pixels $`(x,y)` and $`(x+1,y)` must be consistent : if a tile is chosen for the left pixel, a compatible tile must be chosen for the right pixel.
+
+With the set of tiles chosen, we need 4 constraints like that per pixel : 2 horizontal constraints and 2 vertical ones.
+
+You see that the number of constraints and the number of variables is going to increase very quickly and is proportional to the number of pixels.
+
+If you don't have access to a professional and expensive solver you won't be able to solve all those constraints in a reasonable time except for small pictures.
+
+But, we are not doing maths but art. We do not need to compute the optimal solution. A sub-optimal solution can look great too. The image can be divided in sub-images and the problem solved on each of the sub-images.
+
+We need to ensure that the sub-problems are compatible so there will be new constraints needed to encode that, for instance, the right side of a sub-image is compatible with the left side of the next horizontal sub-image.
+
+With this trick, it is possible to compute big images and with results which are often nice.
+
+But the result is highly dependent on the set of tiles chosen. Other set of tiles (with different topological constraints) may not always give good results when sub-optimal problems are combined.
+
+Once the constraints have been solved, you have the allocation of the tiles on the portrait. But those are pictures and to generate the kind of 3D image displayed at the beginning of this post, we need curves.
+
+Each tile can be encoded as curves (Beziers or splines) instead of pixels.
+
+Then we need to reconnect all those partial curves to create the final description of the picture. We can just follow each curve and see where the path is leading us.
+
+It is not difficult but requires some work to get it right.
+
+Then, those curves can be used in a ray tracer to generate the picture at the beginning of this post.
+
+It is a lot of work for a portrait !
+
+But once we have the algorithm working, we can apply it to different pictures and set of tiles.
+
+For instance, instead of using just black and white, we can generate a bigger set of tiles using more colors.
+
+Here is an example with more colors:
+
+
+:::anchor "sephora"
+:::
+
+
+:::art "assets/2021-10-09/SephoraBraids" "Sephora"
+:::
+
+
+If you look at this picture from very far, you'll see a face.
+
+We can also totally change the kind of tiles used : different pictures and topology. For instance, let's use this set of tiles:
+
+
+:::figure "assets/2021-10-09/tiles2.jpg" "tiles2"
+:::
+
+
+Here is an example generated with those tiles:
+
+
+:::anchor "face"
+:::
+
+
+:::art "assets/2021-10-09/face" "A face"
+:::
+
+
+The algorithm can also be applied to videos with some interesting results:
+
+
+:::anchor "VideoBraid"
+:::
+
+
+:::vimeo "629920741" "8c1c133e17"
+:::
+
+
+Thanks to [Sephora Venites](https://www.sephoravenites.com/) to allow me to use some photos and videos for experimenting with my algorithms.

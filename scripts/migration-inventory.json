@@ -1,0 +1,90 @@
+{
+  "source": "/Users/cfavergeon/Documents/Development/favergeon/blog",
+  "posts": [
+    {
+      "layout": "post",
+      "title": "Hyperbolic Tilings",
+      "date": "2023-02-11",
+      "categories": "arts",
+      "tags": "[maths,art,2D]",
+      "use_math": "true",
+      "image": "/assets/2023-02-11/TriangleGroup_thumb.jpg",
+      "excerpt": "Tilings of the hyperbolic plane",
+      "published": "true",
+      "module": "Hyperbolic",
+      "slug": "hyperbolic",
+      "old": "arts/2023/02/11/hyperbolic.html",
+      "route": "blog/2023-2-11-hyperbolic-tilings/"
+    },
+    {
+      "layout": "post",
+      "title": "Evolving L-system",
+      "date": "2021-10-28",
+      "categories": "arts",
+      "tags": "[maths,art,2D,3D]",
+      "use_math": "false",
+      "image": "/assets/2021-10-28/Pyramid_thumb.jpg",
+      "excerpt": "Representing in 3D the different steps of an L-system recursion",
+      "published": "true",
+      "module": "Evolving",
+      "slug": "evolving",
+      "old": "arts/2021/10/28/evolving.html",
+      "route": "blog/2021-10-28-evolving-lsystem/"
+    },
+    {
+      "layout": "post",
+      "title": "TSP Art",
+      "date": "2021-10-16",
+      "categories": "arts",
+      "excerpt": "Pictures from the Travelling salesman problem.",
+      "image": "/assets/2021-10-16/TrefoilKnot_thumb.jpg",
+      "tags": "[maths,art,2D]",
+      "module": "Tspart",
+      "slug": "tspart",
+      "old": "arts/2021/10/16/tspart.html",
+      "route": "blog/2021-10-16-tsp-art/"
+    },
+    {
+      "layout": "post",
+      "title": "Schmidt Arrangements",
+      "date": "2021-10-13",
+      "categories": "arts",
+      "tags": "[maths,art,2D,3D]",
+      "use_math": "true",
+      "excerpt": "Pictures from Schmidt Arrangements.",
+      "image": "/assets/2021-10-13/Minus3B_thumb.jpg",
+      "module": "Schmidtarrangements",
+      "slug": "schmidtarrangements",
+      "old": "arts/2021/10/13/schmidtarrangements.html",
+      "route": "blog/2021-10-13-schmidt-arrangements/"
+    },
+    {
+      "layout": "post",
+      "title": "Bubbles",
+      "date": "2021-10-12",
+      "categories": "arts",
+      "tags": "[maths,art,2D,3D]",
+      "image": "/assets/2021-10-12/SephoraBubble_thumb.jpg",
+      "excerpt": "How to generate circle packings from pictures.",
+      "module": "Bubbles",
+      "slug": "bubbles",
+      "old": "arts/2021/10/12/bubbles.html",
+      "route": "blog/2021-10-12-bubbles/"
+    },
+    {
+      "layout": "post",
+      "title": "My Avatar",
+      "date": "2021-10-09",
+      "categories": "arts",
+      "tags": "[maths,art,2D,3D]",
+      "use_math": "true",
+      "image": "/assets/2021-10-09/SephoraBraids_thumb.jpg",
+      "excerpt": "In this first post, I'd like to explain the algorithm used to generate my portrait picture.",
+      "module": "Myavatar",
+      "slug": "myavatar",
+      "old": "arts/2021/10/09/myavatar.html",
+      "route": "blog/2021-10-9-my-avatar/"
+    }
+  ],
+  "drafts": 2
+}
